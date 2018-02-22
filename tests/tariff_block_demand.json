@@ -1,0 +1,33 @@
+{
+                "charges": [
+              
+                    
+                    {
+                        "type":"consumption",
+                        "rate":0.117545,
+                        "meter": "imported energy (kwh)"
+                    },
+                    {
+                        "rate": 0,
+                        "meter": "exported energy (kwh)"
+                    },
+                    {
+                        "type": "demand",
+                        "meter": "imported power (kw)",
+                        "rate_bands": [
+                            {
+                                "rate": 0,
+                                "limit": 120                                 
+                            },
+                            {
+                                "rate": 28.45                               
+                            }
+                        ]
+                    }
+                ],
+                "service": "electricity",
+                "consumption_unit": "kWh",
+                "demand_unit": "kW",
+                "demand_window": "30min",
+                "billing_period": "monthly"
+            }

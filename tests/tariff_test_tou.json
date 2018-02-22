@@ -1,0 +1,65 @@
+{
+                "charges": [
+                    {
+                        "rate": 1,
+												"meter": "imported energy (kwh)",
+                        "time": {
+                            "name": "peak",
+                            "periods": [
+                                {
+                                    "from_hour": 14,
+                                    "from_minute": 0,
+                                    "to_hour": 19,
+                                    "to_minute": 59
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "rate": 1,
+												"meter": "imported energy (kwh)",
+                        "time": {
+                            "name": "shoulder",
+                            "periods": [
+                                {
+                                    "from_hour": 10,
+                                    "from_minute": 0,
+                                    "to_hour": 13,
+                                    "to_minute": 59
+                                },
+                                {
+                                    "from_hour": 20,
+                                    "from_minute": 0,
+                                    "to_hour": 21,
+                                    "to_minute": 59
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "rate": 1,
+												"meter": "imported energy (kwh)",
+                        "time": {
+                            "name": "off-peak",
+                            "periods": [
+                                {
+                                    "from_hour": 0,
+                                    "from_minute": 0,
+                                    "to_hour": 9,
+                                    "to_minute": 59
+                                },
+                                {
+                                    "from_hour": 22,
+                                    "from_minute": 0,
+                                    "to_hour": 23,
+                                    "to_minute": 59
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "service": "electricity",
+                "consumption_unit": "kWh",
+                "demand_unit": "kVA",
+                "billing_period": "monthly"
+            }

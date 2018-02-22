@@ -1,0 +1,13 @@
+{
+                "charges": [
+                    {
+                        "type":"consumption",
+												"rate": 0.15,
+                        "meter": "imported energy (kwh)" 
+                    }
+                ],
+                "service": "electricity",
+                "consumption_unit": "kWh",
+                "demand_unit": "kVA",
+                "billing_period": "monthly"
+            }

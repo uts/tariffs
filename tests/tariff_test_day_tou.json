@@ -1,0 +1,163 @@
+
+				{
+	                "charges": [
+	                    {
+	                        "rate": 0.0399909090909091,
+	                        "meter": "imported energy (kwh)"
+	                        "time": {
+	                            "name": "peak",
+	                            "periods": [
+	                                {
+	                                    "weekdays": 1111100,
+	                                    "from_hour": 14,
+	                                    "from_minute": 0,
+	                                    "to_hour": 19,
+	                                    "to_minute": 59
+	                                }
+	                            ]
+	                        }
+	                    },
+	                    {
+	                        "rate": 0.0191381818181818,
+	                        "meter": "imported energy (kwh)"
+	                        "time": {
+	                            "name": "shoulder",
+	                            "periods": [
+	                                {
+	                                    "weekdays": 1111100,
+	                                    "from_hour": 7,
+	                                    "from_minute": 0,
+	                                    "to_hour": 13,
+	                                    "to_minute": 59
+	                                },
+	                                {
+	                                    "weekdays": 1111100,
+	                                    "from_hour": 20,
+	                                    "from_minute": 0,
+	                                    "to_hour": 21,
+	                                    "to_minute": 59
+	                                }
+	                            ]
+	                        }
+	                    },
+						{
+							"rate":0.01261
+							"meter": "imported energy (kwh)"
+							"time": {
+								"name": "off-peak"
+								"periods":[
+									{
+                                    "weekdays": 1111100,
+                                    "from_hour": 0,
+                                    "from_minute": 0,
+                                    "to_hour": 6,
+                                    "to_minute": 59
+									},
+									{
+                                    "weekdays": 1111100,
+                                    "from_hour": 22,
+                                    "from_minute": 0,
+                                    "to_hour": 23,
+                            		"to_minute": 59
+									},
+									{
+                                    "weekdays": 0000011,
+                                    "from_hour": 0,
+                                    "from_minute": 0,
+                                    "to_hour": 23,
+                            		"to_minute": 59
+									}
+								]
+							}
+						},
+	                    {
+	                        "rate": 0.0865693,
+	                        "meter": "imported energy (kwh)"
+	                        "time": {
+	                            "name": "peak",
+	                            "periods": [
+	                                {
+	                                    "weekdays": 1111100,
+	                                    "from_hour": 7,
+	                                    "from_minute": 0,
+	                                    "to_hour": 8,
+	                                    "to_minute": 59
+	                                },
+	                                {
+	                                    "weekdays": 1111100,
+	                                    "from_hour": 17,
+	                                    "from_minute": 0,
+	                                    "to_hour": 19,
+	                                    "to_minute": 59
+	                                }
+	                            ]
+	                        }
+	                    },
+	                    {
+	                        "rate": 0.0865693,
+	                        "meter": "imported energy (kwh)"
+	                        "time": {
+	                            "name": "shoulder",
+	                            "periods": [
+	                                {
+	                                    "weekdays": 1111100,
+	                                    "from_hour": 9,
+	                                    "from_minute": 0,
+	                                    "to_hour": 16,
+	                                    "to_minute": 59
+	                                },
+	                                {
+	                                    "weekdays": 1111100,
+	                                    "from_hour": 20,
+	                                    "from_minute": 0,
+	                                    "to_hour": 21,
+	                                    "to_minute": 59
+	                                }
+	                            ]
+	                        }
+	                    },
+						{
+							"rate":0.0491122654545455
+							"meter": "imported energy (kwh)"
+							"time": {
+								"name": "off-peak"
+								"periods":[
+									{
+                                    "weekdays": 1111100,
+                                    "from_hour": 0,
+                                    "from_minute": 0,
+                                    "to_hour": 6,
+                                    "to_minute": 59
+									},
+									{
+                                    "weekdays": 1111100,
+                                    "from_hour": 22,
+                                    "from_minute": 0,
+                                    "to_hour": 23,
+                            		"to_minute": 59
+									},
+									{
+                                    "weekdays": 0000011,
+                                    "from_hour": 0,
+                                    "from_minute": 0,
+                                    "to_hour": 23,
+                            		"to_minute": 59
+									}
+								]
+							}
+						},
+	                    {
+	                        "type": "demand",
+	                        "meter": "imported power (kw)",
+	                        "rate": 9.883121591
+	                    }
+	                ],
+	                "service": "electricity",
+	                "consumption_unit": "kWh",
+	                "demand_unit": "kVA",
+	                "billing_period": "monthly"
+	            }
+
+
+	            
+

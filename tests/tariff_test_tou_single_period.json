@@ -1,0 +1,22 @@
+{
+                "charges": [
+                    {
+                        "rate": 1,
+                        "time": {
+                            "name": "peak",
+                            "periods": [
+                                {
+                                    "from_hour": 0,
+                                    "from_minute": 0,
+                                    "to_hour": 23,
+                                    "to_minute": 59
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "service": "electricity",
+                "consumption_unit": "kWh",
+                "demand_unit": "kVA",
+                "billing_period": "monthly"
+            }
