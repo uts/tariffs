@@ -1,5 +1,6 @@
 from tariffs.tariff import Tariff
 import pytest
+
 from odin.codecs import dict_codec
 from odin.codecs import json_codec
 import pandas
@@ -65,17 +66,17 @@ class TestTariff(object):
             {
                 "charges": [
                     {
-                        "rate": 0.1,
+                        "rate": 1.0,
                         "season": {
                             "name": "summer",
                             "from_month": 1,
                             "from_day": 1,
-                            "to_month": 4,
-                            "to_day": 1
+                            "to_month": 3,
+                            "to_day": 31
                         }
                     },
                     {
-                        "rate": 0.1,
+                        "rate": 1.0,
                         "season": {
                             "name": "winter",
                             "from_month": 4,
@@ -99,7 +100,7 @@ class TestTariff(object):
             {
                 "charges": [
                     {
-                        "rate": 0.1,
+                        "rate": 1.0,
                         "time": {
                             "name": "peak",
                             "periods": [
@@ -113,7 +114,7 @@ class TestTariff(object):
                         }
                     },
                     {
-                        "rate": 0.1,
+                        "rate": 1.0,
                         "time": {
                             "name": "shoulder",
                             "periods": [
@@ -133,7 +134,7 @@ class TestTariff(object):
                         }
                     },
                     {
-                        "rate": 0.1,
+                        "rate": 1.0,
                         "time": {
                             "name": "off-peak",
                             "periods": [
@@ -156,7 +157,7 @@ class TestTariff(object):
                 "service": "electricity",
                 "consumption_unit": "kWh",
                 "demand_unit": "kVA",
-                "billing_period": "monthly",
+                "billing_period": "monthly"
             }, Tariff
         )
         return tou_tariff
@@ -170,16 +171,16 @@ class TestTariff(object):
                         "meter": "imported energy (kwh)",
                         "rate_schedule": [
                             {
-                                "datetime":"2018-08-01T00:00:00Z",
-                                "rate": 0.1
+                                "datetime":"2018-01-01T00:00:00Z",
+                                "rate": 1.0
                             },
                             {
-                                "datetime":"2018-08-05T12:30:00Z",
-                                "rate": 100
+                                "datetime":"2018-06-01T00:30:00Z",
+                                "rate": 1.0
                             },
                             {
-                                "datetime": "2018-08-30T01:00:00Z",
-                                "rate": 100000
+                                "datetime": "2018-12-31T01:00:00Z",
+                                "rate": 1.0
                             }
                         ]
                     }
@@ -197,7 +198,7 @@ class TestTariff(object):
             {
                 "charges": [
                     {
-                        "rate": -0.1,
+                        "rate": -1.0,
                         "meter": "electricity_exported"
                     }
                 ],
@@ -294,4 +295,3 @@ class TestTariff(object):
     #     actual_bill = supply_payment_tariff.apply(meter_data)
     #     assert actual_bill == expected_bill
     #
-
