@@ -3,6 +3,15 @@
               
                     
                     {
+                        "type":"consumption",
+                        "rate":0.117545,
+                        "meter": "imported energy (kwh)"
+                    },
+                    {
+                        "rate": 0,
+                        "meter": "exported energy (kwh)"
+                    },
+                    {
                         "type": "demand",
                         "meter": "imported power (kw)",
                         "rate_bands": [

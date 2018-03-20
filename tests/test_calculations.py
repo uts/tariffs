@@ -25,11 +25,10 @@ class TestTariff(object):
 
     @pytest.fixture
     def series_data_df(self):
-        working_data_store = pandas.HDFStore('dummy_data_store.h5')
+        working_data_store = pandas.HDFStore('./dummy_data_store.h5')
         series_data_df = working_data_store.select('time_series_data')
         working_data_store.close()
         return series_data_df
-
 
     @pytest.fixture
     def block_tariff(self):
@@ -38,7 +37,6 @@ class TestTariff(object):
                 "charges": [
                     {
                         "type": "consumption",
-                        "meter": "imported energy (kwh)",
                         "rate_bands": [
                             {
                                 "limit": 10,
@@ -223,8 +221,7 @@ class TestTariff(object):
             {
                 "charges": [
                     {
-                        "rate": 0.1,
-                        "meter": "imported power (kw)",
+                        "rate": 1,
                         "type": "demand"
                     }
                 ],
@@ -235,8 +232,11 @@ class TestTariff(object):
         )
         return demand_tariff
 
-    def test_flat_tariff(self,series_data_df):
-        expected_bill = 1339.20
+
+    #Flat tariff tests
+
+    def test_flat_tariff(self, series_data_df):
+        expected_bill = 1339.20   # = (8928kWh * 0.15#$/kWh)
         meter_data_df = pandas.DataFrame([])
         meter_data_df['imported energy (kwh)'] = series_data_df['load_series_flat']
         with open('tariff_test_flat.json') as f:
@@ -244,14 +244,21 @@ class TestTariff(object):
         actual_bill = test_tariff.apply(meter_data_df)
         assert actual_bill == pytest.approx(expected_bill)
 
-    def test_block_tariff(self,series_data_df, block_tariff):
-        expected_bill = 162.549
+    # TOU tariff tests
+
+    def test_tou_tariff_with_fixture_meter_data(self, tou_tariff, meter_data):
+        expected_bill = 35040.0
+        actual_bill = tou_tariff.apply(meter_data)
+        assert actual_bill == expected_bill
+
+    def test_tou_tariff_with_imported_series_data(self, tou_tariff, series_data_df):
+        expected_bill = 8928
         meter_data_df = pandas.DataFrame([])
-        meter_data_df['imported energy (kwh)'] = series_data_df['load_series_real']
-        actual_bill = block_tariff.apply(meter_data_df)
+        meter_data_df['electricity_imported'] = series_data_df['load_series_flat']
+        actual_bill = tou_tariff.apply(meter_data_df)
         assert actual_bill == pytest.approx(expected_bill)
 
-    def test_tou_tariff(self, series_data_df):
+    def test_imported_tou_tariff_with_imported_series_data(self, series_data_df):
         expected_bill = 8928
         meter_data_df = pandas.DataFrame([])
         meter_data_df['imported energy (kwh)'] = series_data_df['load_series_flat']
@@ -260,14 +267,69 @@ class TestTariff(object):
         actual_bill = test_tariff.apply(meter_data_df)
         assert actual_bill == pytest.approx(expected_bill)
 
-    def test_demand_tariff(self, demand_tariff, series_data_df):
-        expected_bill = 300*0.1
+
+    # Scheduled tariff tests
+
+    def test_scheduled_tariff_with_fixture_meter_data(self, scheduled_tariff, meter_data):
+        expected_bill = 35040.0
+        actual_bill = scheduled_tariff.apply(meter_data)
+        assert actual_bill == expected_bill
+
+    def test_scheduled_tariff_with_imported_series_data(self, scheduled_tariff, series_data_df):
+        expected_bill = 8928
+        meter_data_df = pandas.DataFrame([])
+        meter_data_df['imported energy (kwh)'] = series_data_df['load_series_flat']
+        actual_bill = scheduled_tariff.apply(meter_data_df)
+        assert actual_bill == expected_bill
+
+    # Block tariff tests
+
+    def test_block_tariff_with_fixture_meter_data(self, block_tariff, meter_data):
+        expected_bill = (35040-400)*0.3 + (400-10)*0.15 + 10*0.1
+        actual_bill = block_tariff.apply(meter_data)
+        assert actual_bill == pytest.approx(expected_bill)
+
+    def test_block_tariff_with_imported_series_data(self,series_data_df, block_tariff):
+        expected_bill = 162.549
+        meter_data_df = pandas.DataFrame([])
+        meter_data_df['electricity_imported'] = series_data_df['load_series_real']
+        actual_bill = block_tariff.apply(meter_data_df)
+        assert actual_bill == pytest.approx(expected_bill)
+
+    # Demand tariff tests
+
+    def test_demand_tariff_with_fixture_meter_data(self, demand_tariff, meter_data):
+        expected_bill = 4
+        actual_bill = demand_tariff.apply(meter_data)
+        assert actual_bill == expected_bill
+
+    def test_block_demand_tariff_with_imported_series_data(self, series_data_df):
+        #Max usage is 75kWh in a 15 minute period (ie 300kW), total usage is 133920kWh
+        expected_bill = (300-120)*0.2845
+
         meter_data_df = pandas.DataFrame([])
         meter_data_df['imported energy (kwh)'] = series_data_df['load_series_bimodal']
         meter_data_df['imported power (kw)'] = series_data_df['load_series_bimodal']*60
-        actual_bill = demand_tariff.apply(meter_data_df)
+        with open('tariff_block_demand.json') as f:
+            test_tariff = json_codec.load(f, Tariff)
+        actual_bill = test_tariff.apply(meter_data_df)
+        assert actual_bill == pytest.approx(expected_bill)
+
+    # Seasonal tariff tests
+
+    def test_seasonal_tariff_with_fixture_meter_data(self, seasonal_tariff, meter_data):
+        expected_bill = 35040.0
+        actual_bill = seasonal_tariff.apply(meter_data)
         assert actual_bill == expected_bill
 
+    # Supply tariff tests
+
+    def test_supply_payment_with_fixture_meter_data(self, supply_payment_tariff, meter_data):
+        expected_bill = -35040.0
+        actual_bill = supply_payment_tariff.apply(meter_data)
+        assert actual_bill == expected_bill
+
+    # Combination tariff tests
     def test_multi_tou_weekday_tariff(self, series_data_df):
         expected_bill = 17486.60175860
         meter_data_df = pandas.DataFrame([])
@@ -277,31 +339,18 @@ class TestTariff(object):
         actual_bill = test_tariff.apply(meter_data_df)
         assert actual_bill == pytest.approx(expected_bill)
 
+    def test_block_demand_tariff_with_imported_series_data(self, series_data_df):
+        # Max usage is 150kWh in a 30 minute period (ie 300kW), total usage is 133920kWh
+        demand_bill = (300 - 120) * 0.2845
+        consumption_bill = 0.117545 * 133920
+        expected_bill = demand_bill + consumption_bill
 
-        # def test_demand__block_tariff(self, demand_tariff, meter_data):
-        #     expected_bill = 1.0
-        #     actual_bill = demand_tariff.apply(meter_data)
-        #     assert actual_bill == expected_bill
+        meter_data_df = pandas.DataFrame([])
+        meter_data_df['imported energy (kwh)'] = series_data_df['load_series_bimodal']
+        meter_data_df['imported power (kw)'] = series_data_df['load_series_bimodal'] * 60
+        with open('tariff_block_demand.json') as f:
+            test_tariff = json_codec.load(f, Tariff)
+        actual_bill = test_tariff.apply(meter_data_df)
+        assert actual_bill == pytest.approx(expected_bill)
 
 
-    # def test_scheduled_tariff(self, scheduled_tariff, series_data_df):
-    #     expected_bill = 57106330.2
-    #     meter_data_df = pandas.DataFrame([])
-    #     meter_data_df['imported energy (kwh)'] = series_data_df['load_series_flat']
-    #     actual_bill = scheduled_tariff.apply(meter_data_df)
-    #     assert actual_bill == expected_bill
-    #
-    # def test_seasonal_tariff(self, seasonal_tariff, meter_data):
-    #     expected_bill = 1.0
-    #     actual_bill = seasonal_tariff.apply(meter_data)
-    #     assert actual_bill == expected_bill
-    #
-
-    #
-    #
-    #
-    # def test_supply_payment(self, supply_payment_tariff, meter_data):
-    #     expected_bill = 1.0
-    #     actual_bill = supply_payment_tariff.apply(meter_data)
-    #     assert actual_bill == expected_bill
-    #
