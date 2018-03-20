@@ -339,18 +339,32 @@ class TestTariff(object):
         actual_bill = test_tariff.apply(meter_data_df)
         assert actual_bill == pytest.approx(expected_bill)
 
-    def test_block_demand_tariff_with_imported_series_data(self, series_data_df):
+    def test_consumption_with_block_demand_tariff_with_imported_series_data(self, series_data_df):
         # Max usage is 150kWh in a 30 minute period (ie 300kW), total usage is 133920kWh
-        demand_bill = (300 - 120) * 0.2845
+        demand_bill = (300 - 120) * 0.001
+        consumption_bill = 10 * 133920
+        expected_bill = demand_bill + consumption_bill
+
+        meter_data_df = pandas.DataFrame([])
+        meter_data_df['imported energy (kwh)'] = series_data_df['load_series_bimodal']
+        meter_data_df['imported power (kw)'] = series_data_df['load_series_bimodal'] * 60
+        with open('tariff_consumption_with_block_demand.json') as f:
+            test_tariff = json_codec.load(f, Tariff)
+        actual_bill = test_tariff.apply(meter_data_df)
+        assert actual_bill == pytest.approx(expected_bill)
+
+
+    def test_south_australia_with_imported_series_data(self, series_data_df):
+        # Max usage is 150kWh in a 30 minute period (ie 300kW), total usage is 133920kWh
+        demand_bill = (300 - 120) * 28.45
         consumption_bill = 0.117545 * 133920
         expected_bill = demand_bill + consumption_bill
 
         meter_data_df = pandas.DataFrame([])
         meter_data_df['imported energy (kwh)'] = series_data_df['load_series_bimodal']
         meter_data_df['imported power (kw)'] = series_data_df['load_series_bimodal'] * 60
-        with open('tariff_block_demand.json') as f:
+        with open('tariff_south_australia.json') as f:
             test_tariff = json_codec.load(f, Tariff)
         actual_bill = test_tariff.apply(meter_data_df)
         assert actual_bill == pytest.approx(expected_bill)
-
 
