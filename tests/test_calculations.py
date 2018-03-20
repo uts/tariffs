@@ -51,11 +51,7 @@ class TestTariff(object):
                             }
                         ]
                     }
-                ],
-                "service": "electricity",
-                "consumption_unit": "kWh",
-                "demand_unit": "kVA",
-                "billing_period": "monthly"
+                ]
             }, Tariff
         )
         return block_tariff
@@ -85,11 +81,7 @@ class TestTariff(object):
                             "to_day": 31
                         }
                     }
-                ],
-                "service": "electricity",
-                "consumption_unit": "kWh",
-                "demand_unit": "kVA",
-                "billing_period": "monthly"
+                ]
             }, Tariff
         )
         return seasonal_tariff
@@ -105,10 +97,10 @@ class TestTariff(object):
                             "name": "peak",
                             "periods": [
                                 {
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 14,
-                                    "from_minute": 0,
                                     "to_hour": 19,
-                                    "to_minute": 59
                                 }
                             ]
                         }
@@ -119,16 +111,16 @@ class TestTariff(object):
                             "name": "shoulder",
                             "periods": [
                                 {
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 10,
-                                    "from_minute": 0,
                                     "to_hour": 13,
-                                    "to_minute": 59
                                 },
                                 {
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 20,
-                                    "from_minute": 0,
                                     "to_hour": 21,
-                                    "to_minute": 59
                                 }
                             ]
                         }
@@ -139,25 +131,29 @@ class TestTariff(object):
                             "name": "off-peak",
                             "periods": [
                                 {
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 0,
                                     "from_minute": 0,
                                     "to_hour": 9,
                                     "to_minute": 59
                                 },
                                 {
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 22,
                                     "from_minute": 0,
                                     "to_hour": 23,
                                     "to_minute": 59
+                                },
+                                {
+                                    "from_weekday": 5,
+                                    "to_weekday": 6
                                 }
                             ]
                         }
                     }
-                ],
-                "service": "electricity",
-                "consumption_unit": "kWh",
-                "demand_unit": "kVA",
-                "billing_period": "monthly"
+                ]
             }, Tariff
         )
         return tou_tariff
@@ -184,10 +180,7 @@ class TestTariff(object):
                             }
                         ]
                     }
-                ],
-                "service": "electricity",
-                "energy_unit": "kWh",
-                "demand_unit": "kVA"
+                ]
             }, Tariff
         )
         return scheduled_tariff
@@ -199,10 +192,9 @@ class TestTariff(object):
                 "charges": [
                     {
                         "rate": -1.0,
-                        "meter": "electricity_exported"
+                        "type": "generation"
                     }
-                ],
-                "service": "electricity"
+                ]
             }, Tariff
         )
         return supply_payment_tariff
@@ -217,13 +209,11 @@ class TestTariff(object):
                         "meter": "imported power (kw)",
                         "type": "demand"
                     }
-                ],
-                "service": "electricity",
-                "demand_window": "15min",
-                "billing_period": "monthly"
+                ]
             }, Tariff
         )
         return demand_tariff
+
 
     def test_flat_tariff(self,series_data_df):
         expected_bill = 1339.20
@@ -295,3 +285,34 @@ class TestTariff(object):
     #     actual_bill = supply_payment_tariff.apply(meter_data)
     #     assert actual_bill == expected_bill
     #
+
+    def test_block_tariff(self, block_tariff, meter_data):
+        expected_bill = 35040.0
+        actual_bill = block_tariff.apply(meter_data)
+        assert actual_bill.cost == expected_bill
+
+    def test_seasonal_tariff(self, seasonal_tariff, meter_data):
+        expected_bill = 35040.0
+        actual_bill = seasonal_tariff.apply(meter_data)
+        assert actual_bill.cost == expected_bill
+
+    def test_tou_tariff(self, tou_tariff, meter_data):
+        expected_bill = 35040.0
+        actual_bill = tou_tariff.apply(meter_data)
+        assert actual_bill.cost == expected_bill
+
+    def test_scheduled_tariff(self, scheduled_tariff, meter_data):
+        expected_bill = 35040.0
+        actual_bill = scheduled_tariff.apply(meter_data)
+        assert actual_bill.cost == expected_bill
+
+    def test_supply_payment(self, supply_payment_tariff, meter_data):
+        expected_bill = -35040.0
+        actual_bill = supply_payment_tariff.apply(meter_data)
+        assert actual_bill.cost == expected_bill
+
+    def test_demand_tariff(self, demand_tariff, meter_data):
+        expected_bill = 12.0
+        actual_bill = demand_tariff.apply(meter_data)
+        assert actual_bill.cost == expected_bill
+
