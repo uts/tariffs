@@ -3,6 +3,8 @@ import pytest
 
 from odin.codecs import dict_codec
 from odin.codecs import json_codec
+
+
 import pandas
 import datetime
 
@@ -105,10 +107,10 @@ class TestTariff(object):
                             "name": "peak",
                             "periods": [
                                 {
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 14,
-                                    "from_minute": 0,
                                     "to_hour": 19,
-                                    "to_minute": 59
                                 }
                             ]
                         }
@@ -119,16 +121,16 @@ class TestTariff(object):
                             "name": "shoulder",
                             "periods": [
                                 {
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 10,
-                                    "from_minute": 0,
                                     "to_hour": 13,
-                                    "to_minute": 59
                                 },
                                 {
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 20,
-                                    "from_minute": 0,
                                     "to_hour": 21,
-                                    "to_minute": 59
                                 }
                             ]
                         }
@@ -139,16 +141,24 @@ class TestTariff(object):
                             "name": "off-peak",
                             "periods": [
                                 {
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 0,
                                     "from_minute": 0,
                                     "to_hour": 9,
                                     "to_minute": 59
                                 },
                                 {
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 22,
                                     "from_minute": 0,
                                     "to_hour": 23,
                                     "to_minute": 59
+                                },
+                                {
+                                    "from_weekday": 5,
+                                    "to_weekday": 6
                                 }
                             ]
                         }
