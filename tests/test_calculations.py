@@ -252,14 +252,14 @@ class TestTariff(object):
         assert actual_bill == expected_bill
 
     def test_tou_tariff_with_imported_series_data(self, tou_tariff, series_data_df):
-        expected_bill = 8928
+        expected_bill = series_data_df['load_series_flat'].sum()
         meter_data_df = pandas.DataFrame([])
         meter_data_df['electricity_imported'] = series_data_df['load_series_flat']
         actual_bill = tou_tariff.apply(meter_data_df)
         assert actual_bill == pytest.approx(expected_bill)
 
     def test_imported_tou_tariff_with_imported_series_data(self, series_data_df):
-        expected_bill = 8928
+        expected_bill = series_data_df['load_series_flat'].sum()
         meter_data_df = pandas.DataFrame([])
         meter_data_df['imported energy (kwh)'] = series_data_df['load_series_flat']
         with open('tariff_test_tou.json') as f:

@@ -12,7 +12,8 @@
 	                            "name": "peak",
 	                            "periods": [
 	                                {
-	                                    "weekdays": 1111100,
+                                      "from_weekday": 0,
+                                      "to_weekday": 4,
 	                                    "from_hour": 14,
 	                                    "from_minute": 0,
 	                                    "to_hour": 19,
@@ -28,14 +29,16 @@
 	                            "name": "shoulder",
 	                            "periods": [
 	                                {
-	                                    "weekdays": 1111100,
+                                      "from_weekday": 0,
+                                      "to_weekday": 4,
 	                                    "from_hour": 7,
 	                                    "from_minute": 0,
 	                                    "to_hour": 13,
 	                                    "to_minute": 59
 	                                },
 	                                {
-	                                    "weekdays": 1111100,
+                                      "from_weekday": 0,
+                                      "to_weekday": 4,
 	                                    "from_hour": 20,
 	                                    "from_minute": 0,
 	                                    "to_hour": 21,
@@ -51,25 +54,28 @@
 								"name": "off-peak"
 								"periods":[
 									{
-                                    "weekdays": 1111100,
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 0,
                                     "from_minute": 0,
                                     "to_hour": 6,
                                     "to_minute": 59
 									},
 									{
-                                    "weekdays": 1111100,
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 22,
                                     "from_minute": 0,
                                     "to_hour": 23,
-                            		"to_minute": 59
+                                    "to_minute": 59
 									},
 									{
-                                    "weekdays": 0000011,
+                                    "from_weekday": 5,
+                                    "to_weekday": 6,
                                     "from_hour": 0,
                                     "from_minute": 0,
                                     "to_hour": 23,
-                            		"to_minute": 59
+                                    "to_minute": 59
 									}
 								]
 							}
@@ -81,14 +87,16 @@
 	                            "name": "peak",
 	                            "periods": [
 	                                {
-	                                    "weekdays": 1111100,
+                                      "from_weekday": 0,
+                                      "to_weekday": 4,
 	                                    "from_hour": 7,
 	                                    "from_minute": 0,
 	                                    "to_hour": 8,
 	                                    "to_minute": 59
 	                                },
 	                                {
-	                                    "weekdays": 1111100,
+                                      "from_weekday": 0,
+                                      "to_weekday": 4,
 	                                    "from_hour": 17,
 	                                    "from_minute": 0,
 	                                    "to_hour": 19,
@@ -104,14 +112,16 @@
 	                            "name": "shoulder",
 	                            "periods": [
 	                                {
-	                                    "weekdays": 1111100,
+                                      "from_weekday": 0,
+                                      "to_weekday": 4,
 	                                    "from_hour": 9,
 	                                    "from_minute": 0,
 	                                    "to_hour": 16,
 	                                    "to_minute": 59
 	                                },
 	                                {
-	                                    "weekdays": 1111100,
+                                      "from_weekday": 0,
+                                      "to_weekday": 4,
 	                                    "from_hour": 20,
 	                                    "from_minute": 0,
 	                                    "to_hour": 21,
@@ -127,21 +137,24 @@
 								"name": "off-peak"
 								"periods":[
 									{
-                                    "weekdays": 1111100,
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 0,
                                     "from_minute": 0,
                                     "to_hour": 6,
                                     "to_minute": 59
 									},
 									{
-                                    "weekdays": 1111100,
+                                    "from_weekday": 0,
+                                    "to_weekday": 4,
                                     "from_hour": 22,
                                     "from_minute": 0,
                                     "to_hour": 23,
                             		"to_minute": 59
 									},
 									{
-                                    "weekdays": 0000011,
+                                    "from_weekday": 5,
+                                    "to_weekday": 6,
                                     "from_hour": 0,
                                     "from_minute": 0,
                                     "to_hour": 23,
