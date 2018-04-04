@@ -343,6 +343,16 @@ class TestTariff(object):
         actual_bill = test_tariff.apply(meter_data_df)
         assert actual_bill == pytest.approx(expected_bill)
 
+    def test_multi_tou_weekday_tariff_series_output(self, series_data_df):
+        expected_bill = series_data_df['load_series_flat'].sum()
+        meter_data_df = pandas.DataFrame([])
+        meter_data_df['imported energy (kwh)'] = series_data_df['load_series_flat']
+        meter_data_df['imported power (kw)'] = series_data_df['load_series_flat'] * 60
+        with open('tariff_multi_tou.json') as f:
+            test_tariff = json_codec.load(f, Tariff)
+        actual_bill_series = test_tariff.apply(meter_data_df,output_format='input-timestep')
+        assert actual_bill_series.sum() == pytest.approx(expected_bill)
+
     def test_consumption_with_block_demand_tariff_with_imported_series_data(self, series_data_df):
         # Max usage is 150kWh in a 30 minute period (ie 300kW), total usage is 133920kWh
         demand_bill = (300 - 120) * 0.001

@@ -2,12 +2,8 @@
 				{
 	                "charges": [
 	                    {
-	                    	"rate": 0.018066091,
-	                        "meter": "imported energy (kwh)"
-	                    },
-	                    {
-	                        "rate": 0.0399909090909091,
-	                        "meter": "imported energy (kwh)"
+	                        "rate": 0.3,
+	                        "meter": "imported energy (kwh)",
 	                        "time": {
 	                            "name": "peak",
 	                            "periods": [
@@ -23,8 +19,8 @@
 	                        }
 	                    },
 	                    {
-	                        "rate": 0.0191381818181818,
-	                        "meter": "imported energy (kwh)"
+	                        "rate": 0.3,
+	                        "meter": "imported energy (kwh)",
 	                        "time": {
 	                            "name": "shoulder",
 	                            "periods": [
@@ -48,10 +44,10 @@
 	                        }
 	                    },
 						{
-							"rate":0.01261
-							"meter": "imported energy (kwh)"
+							"rate":0.3,
+							"meter": "imported energy (kwh)",
 							"time": {
-								"name": "off-peak"
+								"name": "off-peak",
 								"periods":[
 									{
                                     "from_weekday": 0,
@@ -81,8 +77,8 @@
 							}
 						},
 	                    {
-	                        "rate": 0.0865693,
-	                        "meter": "imported energy (kwh)"
+	                        "rate": 0.7,
+	                        "meter": "imported energy (kwh)",
 	                        "time": {
 	                            "name": "peak",
 	                            "periods": [
@@ -106,8 +102,8 @@
 	                        }
 	                    },
 	                    {
-	                        "rate": 0.0865693,
-	                        "meter": "imported energy (kwh)"
+	                        "rate": 0.7,
+	                        "meter": "imported energy (kwh)",
 	                        "time": {
 	                            "name": "shoulder",
 	                            "periods": [
@@ -131,10 +127,10 @@
 	                        }
 	                    },
 						{
-							"rate":0.0491122654545455
-							"meter": "imported energy (kwh)"
+							"rate":0.7,
+							"meter": "imported energy (kwh)",
 							"time": {
-								"name": "off-peak"
+								"name": "off-peak",
 								"periods":[
 									{
                                     "from_weekday": 0,
@@ -162,12 +158,7 @@
 									}
 								]
 							}
-						},
-	                    {
-	                        "type": "demand",
-	                        "meter": "imported power (kw)",
-	                        "rate": 9.883121591
-	                    }
+						}
 	                ],
 	                "service": "electricity",
 	                "consumption_unit": "kWh",
