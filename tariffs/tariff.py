@@ -118,6 +118,8 @@ class Season(odin.Resource):
 
 class Charge(odin.Resource):
     """A charge component of a tariff structure"""
+    name = odin.StringField(null=True)
+    code = odin.StringField(null=True)
     rate = odin.FloatField(null=True)
     rate_bands = odin.ArrayOf(RateBand, null=True)
     rate_schedule = odin.ArrayOf(ScheduleItem, null=True)
@@ -243,20 +245,20 @@ class Tariff(odin.Resource):
                                             hour=period.from_hour, minute=period.from_minute) <= time <= datetime.time(
                                             hour=period.to_hour, minute=period.to_minute):
                                         charge_array, block_accum_dict = self.calc_charge(
-                                            self.service + charge_type + charge.season.name + charge.time.name, row,
+                                            charge.code + self.service + charge_type + charge.season.name + charge.time.name, row,
                                             charge, charge_array, block_accum_dict)
                                         found = True
                                         break
                             if not found:
-                                charge_array[self.service + charge_type + charge.season.name + charge.time.name].append(0.0)
+                                charge_array[charge.code + self.service + charge_type + charge.season.name + charge.time.name].append(0.0)
                         elif charge.season and not charge.time:
                             if datetime.date(year=dt.year, month=charge.season.from_month, day=charge.season.from_day)\
                                     <= dt.date() <= datetime.date(year=dt.year, month=charge.season.to_month,
                                                                  day=charge.season.to_day):
                                 charge_array, block_accum_dict = self.calc_charge(
-                                    self.service + charge_type + charge.season.name, row, charge, charge_array, block_accum_dict)
+                                    charge.code + self.service + charge_type + charge.season.name, row, charge, charge_array, block_accum_dict)
                             else:
-                                charge_array[self.service + charge_type + charge.season.name].append(0.0)
+                                charge_array[charge.code + self.service + charge_type + charge.season.name].append(0.0)
                         elif charge.time and not charge.season:
                             found = False
                             for period in charge.time.periods:
@@ -264,18 +266,18 @@ class Tariff(odin.Resource):
                                         hour=period.from_hour, minute=period.from_minute) <= time <= datetime.time(
                                         hour=period.to_hour, minute=period.to_minute):
                                     charge_array, block_accum_dict = self.calc_charge(
-                                        self.service + charge_type + charge.time.name, row, charge, charge_array, block_accum_dict)
+                                        charge.code + self.service + charge_type + charge.time.name, row, charge, charge_array, block_accum_dict)
                                     found = True
                             if not found:
-                                charge_array[self.service + charge_type + charge.time.name].append(0.0)
+                                charge_array[charge.code + self.service + charge_type + charge.time.name].append(0.0)
                         elif charge.rate_schedule:
                             for schedule_item in charge.rate_schedule:
                                 if dt.to_pydatetime() < schedule_item.datetime:
-                                    charge_array[self.service + charge_type + 'scheduled'].append(schedule_item.rate * float(row[charge.meter]))
+                                    charge_array[charge.code + self.service + charge_type + 'scheduled'].append(schedule_item.rate * float(row[charge.meter]))
                                     break
                         else:
                             charge_array, block_accum_dict = self.calc_charge(
-                                self.service + charge_type, row, charge, charge_array, block_accum_dict)
+                                charge.code + self.service + charge_type, row, charge, charge_array, block_accum_dict)
 
         return charge_array
 
