@@ -83,12 +83,5 @@ with open('tariff.json') as f:
 bill = tariff.apply(meter_data)
 ```
 
-To-do
------
-- Re-structure the cost output into a structured Odin Resource
-- Add support for Green Button and other serialised consumption data formats
-- Add support for ratchet tariffs
 
-This is an early beta and we'll add documentation later but for now you can review the tests for examples of common tariff structures and their application.
-
-Pull requests welcome.
+This version will be deprecated
