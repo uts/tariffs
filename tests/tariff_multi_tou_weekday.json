@@ -3,6 +3,7 @@
 	                "charges": [
 	                    {
 	                        "rate": 0.0399909090909091,
+	                        "code": "network",
 	                        "meter": "imported energy (kwh)",
 	                        "time": {
 	                            "name": "peak",
@@ -20,6 +21,7 @@
 	                    },
 	                    {
 	                        "rate": 0.0191381818181818,
+	                        "code": "network",
 	                        "meter": "imported energy (kwh)",
 	                        "time": {
 	                            "name": "shoulder",
@@ -45,6 +47,7 @@
 	                    },
 	                    {
 	                        "rate":0.01261,
+	                        "code": "network",
 	                        "meter": "imported energy (kwh)",
 	                        "time": {
 	                            "name": "off-peak",
@@ -78,6 +81,7 @@
 						},
 	                    {
 	                        "rate": 0.0865693,
+	                        "code": "retail",
 	                        "meter": "imported energy (kwh)",
 	                        "time": {
 	                            "name": "peak",
@@ -103,6 +107,7 @@
 	                    },
 	                    {
 	                        "rate": 0.0865693,
+	                        "code": "retail",
 	                        "meter": "imported energy (kwh)",
 	                        "time": {
 	                            "name": "shoulder",
@@ -128,6 +133,7 @@
 	                    },
 						{
 							"rate":0.0491122654545455,
+							"code": "retail",
 							"meter": "imported energy (kwh)",
 							"time": {
 								"name": "off-peak",

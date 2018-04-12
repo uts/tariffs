@@ -3,6 +3,8 @@ Tariffs
 
 This library provides a Python toolkit for analysing tariffs for electricity, gas and other utility services.
 
+This branch is for use with the REALM project, future developments in the toolkit will no longer be supporting price output to pandas array so this branch will ultimately be deprecated.
+
 Use cases include:
 - assessing the bill savings associated with energy efficiency, solar or load management
 - assessing the benefits of tariff switching
